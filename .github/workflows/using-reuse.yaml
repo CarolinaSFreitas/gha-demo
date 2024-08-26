@@ -69,6 +69,8 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yaml #uso de workflow reutilizável, que é um arquivo YAML que contém um job que pode ser reutilizado em outros workflows
+    with:
+      artifact-name: dist-files #definição do nome do artefato que será baixado, que é passado como entrada para o workflow reutilizável
   report:   #esse job é executado apenas em caso de falha em algum dos jobs anteriores (lint, deploy). é responsável por reportar a falha no job
     needs: [lint, deploy]
     if: failure ()
