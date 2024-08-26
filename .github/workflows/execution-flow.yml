@@ -75,7 +75,8 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
-  report:
+  report:   #esse job é executado apenas em caso de falha em algum dos jobs anteriores (lint, deploy). é responsável por reportar a falha no job
+    needs: [lint, deploy]
     if: failure ()
     runs-on: ubuntu-latest
     steps:
