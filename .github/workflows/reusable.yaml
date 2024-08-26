@@ -1,8 +1,21 @@
 name: Reusable Deploy
-on: workflow_call #evento que aciona o workflow, que é um evento personalizado, que é acionado por outro workflow. no caso, é o .github/workflows/using-reuse.yaml
+on: 
+  workflow_call: #evento que aciona o workflow, que é um evento personalizado, que é acionado por outro workflow. no caso, é o .github/workflows/using-reuse.yaml
+    inputs:
+      artifact-name: #entrada que define o nome do artefato que será baixado
+        description: 'Name of the artifact to download'
+        required: false
+        default: dist
+        type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get Code
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.artifact-name }} #nome do artefato que será baixado, definido pela entrada artifact-name, que é passada pelo workflow que aciona esse workflow reutilizável
+      - name: List Files
+        run: ls
       - name: Output information
         run: echo "Deploying & uploading..."
