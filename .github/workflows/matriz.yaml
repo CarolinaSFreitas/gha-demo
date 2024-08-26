@@ -2,6 +2,7 @@ name: Demo Matriz
 on: push
 jobs: 
   build:
+    continue-on-error: true #essa flag permite que o job continue mesmo em caso de erro, permitindo a execução de jobs seguintes
     strategy:
       matrix:
         node-version: [12, 14, 16] #matriz de versões do NodeJS, que serão utilizadas para testar o projeto em diferentes versões do NodeJS
