@@ -7,6 +7,12 @@ jobs:
       matrix:
         node-version: [12, 14, 16] #matriz de versões do NodeJS, que serão utilizadas para testar o projeto em diferentes versões do NodeJS
         operating-system: [ubuntu-latest, windows-latest] #matriz de sistemas operacionais, que serão utilizados para testar o projeto em diferentes sistemas operacionais
+        include: #definição de combinações de versões do NodeJS e sistemas operacionais, que serão utilizadas para testar o projeto fora da matriz de versões do NodeJS e SO's
+          - node-version: 18
+            operating-system: ubuntu-latest
+        exclude: #definição de combinações de versões do NodeJS e sistemas operacionais, que não serão utilizadas para testar o projeto. no caso, node:12 e windows-latest
+          - node-version: 12
+            operating-system: windows-latest
     runs-on: ${{ matrix.operating-system }} #execução do job em diferentes sistemas operacionais, de acordo com a matriz de sistemas operacionais definida antes 
     steps:
       - name: Get code
