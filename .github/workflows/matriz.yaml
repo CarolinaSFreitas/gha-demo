@@ -1,0 +1,20 @@
+name: Demo Matriz
+on: push
+jobs: 
+  build:
+    strategy:
+      matrix:
+        node-version: [12, 14, 16] #matriz de versões do NodeJS, que serão utilizadas para testar o projeto em diferentes versões do NodeJS
+        operating-system: [ubuntu-latest, windows-latest] #matriz de sistemas operacionais, que serão utilizados para testar o projeto em diferentes sistemas operacionais
+    runs-on: ${{ matrix.operating-system }} #execução do job em diferentes sistemas operacionais, de acordo com a matriz de sistemas operacionais definida antes 
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }} #instalação de diferentes versões do NodeJS, de acordo com a matriz de versões do NodeJS definida antes
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
