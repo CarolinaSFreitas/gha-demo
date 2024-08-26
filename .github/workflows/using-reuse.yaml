@@ -66,6 +66,12 @@ jobs:
         with:
           name: dist-files
           path: dist
+  print-deploy-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print deploy output
+        run: echo "${{ needs.deploy.outputs.result }}" #impressão do resultado do deploy, que é passado como saída do workflow reutilizável
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yaml #uso de workflow reutilizável, que é um arquivo YAML que contém um job que pode ser reutilizado em outros workflows

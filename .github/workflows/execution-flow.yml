@@ -74,6 +74,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-files
+        # secrets: ##secrets são variáveis de ambiente sensíveis que não devem ser expostas no código. são definidas no repositório e acessadas pelo workflow
+          # some-secret: ${{ secrets.some-secret }}
       - name: Output contents
         run: ls
       - name: Deploy
